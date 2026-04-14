@@ -106,6 +106,16 @@ def format_report(all_ads):
         start = str(ad.get("startDate", ""))[:10]
         ads_text += f"Page: {page} | Body: {body} | Started: {start}\n"
 
+    if not ANTHROPIC_API_KEY:
+        lines = [f"📢 *FB Ads Report*
+{datetime.now().strftime(chr(37)+"Y-"+chr(37)+"m-"+chr(37)+"d")}"]
+        for ad in all_ads[:20]:
+            page = ad.get("pageName","Unknown")
+            body = str(ad.get("snapshot",{}).get("body",{}).get("markup",{}).get("__html",""))[:150]
+            lines.append(f"*{page}*
+- {body}")
+        return "
+".join(lines)
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
     msg = client.messages.create(
         model="claude-haiku-4-5-20251001",
