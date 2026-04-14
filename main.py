@@ -39,7 +39,7 @@ def send(text):
             print(f"Telegram error: {e}")
 
 def fetch_ads_apify(keyword):
-    url = f"https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=MY&q={keyword}&search_type=keyword_unordered"
+    url = f"https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=MY&is_targeted_country=false&media_type=all&q=%22{keyword}%22&search_type=keyword_exact_phrase&sort_data[direction]=desc&sort_data[mode]=total_impressions"
     try:
         # Start Apify actor run
         run_resp = requests.post(
