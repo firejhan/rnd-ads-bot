@@ -45,7 +45,7 @@ def fetch_ads_apify(keyword):
         run_resp = requests.post(
             "https://api.apify.com/v2/acts/curious_coder~facebook-ads-library-scraper/runs",
             headers={"Authorization": f"Bearer {APIFY_TOKEN}"},
-            json={"urls": [url], "count": 20},
+            json={"urls": [{"url": url}], "count": 20},
             timeout=30
         )
         run_data = run_resp.json()
